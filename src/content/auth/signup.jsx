@@ -10,18 +10,16 @@ class Signup extends React.Component {
 		lastname: '',
 		email: '',
 		password: '',
-		profileUrl: ''
+		profileUrl: '',
+		message: ''
 	}
 
 
 	handleSubmit = (e) => {
 		e.preventDefault();
-		console.log('Submitted', this.state);
-		console.log('SERVER_URL', SERVER_URL);
 		// Send the user signup data to the server
 		axios.post(`${SERVER_URL}/auth/signup`, this.state)
 		.then(response => {
-			console.log('SUCCESS', response);
 			// Store token in local storage
 			localStorage.setItem('serverToken', response.data.token);
 			// Update app with user info
@@ -29,11 +27,12 @@ class Signup extends React.Component {
 		})
 		.catch(err => {
 			console.log('ERROR posting to server', err);
+			this.setState({ message: `${err.response.status}: ${err.response.data.message}`})
 		})
 	}
 
 	storeInput = (e) => {
-		this.setState({ [e.target.name]: e.target.value});
+		this.setState({ [e.target.name]: e.target.value, message: '' });
 	}
 
 	render() {
@@ -44,6 +43,7 @@ class Signup extends React.Component {
 		return (
 			<div>
 				<h2>Signup</h2>
+				<span className="red">{this.state.message}</span>
 				<form onSubmit={this.handleSubmit}>
 					<div>
 						<label>First name:</label>

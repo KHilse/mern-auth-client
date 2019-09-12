@@ -34,6 +34,8 @@ class App extends React.Component {
       .catch(err => {
         console.log("ERROR getting token", err);
       })
+    } else {
+      this.setState({ user: null });
     }
   }
 
@@ -46,7 +48,7 @@ class App extends React.Component {
     return (
       <Router>
         <div className="App">
-          <Nav user={this.state.user}/>
+          <Nav user={this.state.user} updateUser={this.getUser} />
           <Header />
           <Routes updateUser={this.getUser} user={this.state.user}/>
         </div>

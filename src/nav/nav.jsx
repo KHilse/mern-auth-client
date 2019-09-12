@@ -3,7 +3,12 @@ import { Link } from 'react-router-dom';
 
 class Nav extends Component {
 
-
+	handleLogout = (e) => {
+		e.preventDefault();
+		// Remove the token from local storage
+		localStorage.removeItem('serverToken');
+		this.props.updateUser();
+	}
 
 	render() {
 		let links = '';
@@ -13,7 +18,7 @@ class Nav extends Component {
 			links = (
 				<span>
 					<li><Link to="/profile">Profile</Link></li>
-					<li><Link to="/logout">Logout</Link></li>
+					<li><a href="/" onClick={this.handleLogout}>Logout</a></li>
 				</span>
 			)
 		} else {

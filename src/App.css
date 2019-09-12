@@ -36,3 +36,7 @@ nav a:hover {
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+.red {
+  color: red;
+}
